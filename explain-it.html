@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Heat Brief - Explain It</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#c53030",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#1f1313",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .map-overlay-gradient {
+            background: linear-gradient(to right, #fbbf24, #f97316, #ef4444);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #422929;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased overflow-hidden">
+    <div class="flex min-h-screen flex-col">
+        <!-- Top Navigation -->
+        <header
+            class="sticky top-0 z-50 flex items-center justify-between border-b border-primary/20 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md px-6 py-3">
+            <div class="flex items-center gap-3">
+                <div class="flex items-center justify-center size-10 rounded-lg bg-primary text-white">
+                    <span class="material-symbols-outlined text-2xl">thermostat</span>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">HeatDebt</h1>
+                    <p class="text-[10px] uppercase tracking-widest text-primary font-semibold">Thermal Equity Project
+                    </p>
+                </div>
+            </div>
+            <nav class="flex gap-1">
+                <a class="flex items-center gap-2 px-4 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-primary/10 transition-colors font-medium"
+                    href="index.html">
+                    <span class="material-symbols-outlined text-sm">map</span>
+                    See It
+                </a>
+                <a class="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white font-medium transition-colors"
+                    href="explain-it.html">
+                    <span class="material-symbols-outlined text-sm">lightbulb</span>
+                    Explain It
+                </a>
+                <a class="flex items-center gap-2 px-4 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-primary/10 transition-colors font-medium"
+                    href="fix-it.html">
+                    <span class="material-symbols-outlined text-sm">build</span>
+                    Fix It
+                </a>
+                <a class="flex items-center gap-2 px-4 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-primary/10 transition-colors font-medium"
+                    href="fund-it.html">
+                    <span class="material-symbols-outlined text-sm">volunteer_activism</span>
+                    Fund It
+                </a>
+            </nav>
+            <div class="flex items-center gap-4">
+                <button class="p-2 rounded-full hover:bg-primary/10 text-slate-600 dark:text-slate-400">
+                    <span class="material-symbols-outlined">notifications</span>
+                </button>
+                <div
+                    class="size-10 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center overflow-hidden">
+                    <img class="w-full h-full object-cover" data-alt="User profile avatar"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYrAG8N2VIKoy6r1E3zWV2tc0lOgzP-CjltrZBDmpvyKvEMj8q6idc3jgjkPUORCzfU0mgnBGiSkQ11aDxsStQKIlc7yZkQtJOM4JhCMyS0f0617aPoNqAXzHpjGB4GAwQcRbv_dDSvKJHwov6VxR3ci1ZcepL1dcXDGIimyZrM2CYjYg4Gw9ALL-ru-lQgymjUciXHCUYd7p3kJUfbPty0AJUECSxIbyB5GV1ADw3j6P6b1t2bpURn4rC8Jl2qxCTPxlwmKo_E5s" />
+                </div>
+            </div>
+        </header>
+        <!-- Main Content Split Layout -->
+        <main class="flex-1 flex flex-col lg:flex-row overflow-hidden max-w-[1920px] mx-auto w-full">
+            <!-- Left Panel: Map (65%) -->
+            <section
+                class="lg:w-[65%] h-[400px] lg:h-auto relative bg-slate-200 dark:bg-slate-800 border-r border-primary/10">
+                <div class="absolute inset-0 bg-cover bg-center"
+                    data-alt="Satellite map of Montgomery urban neighborhood with heat highlights"
+                    data-location="Montgomery, Alabama"
+                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBRZmWzu24DuyK35AyCiV0EQs-YuiSrXqrQcirDePDqirhZB8DPM9G5A6gcqq4BOIFFvsKZtug5vilgj4rcUxeHrKcrmNBahiuXYJhvzXAQZeHGGgc70c6od2RRbxgoj2K9S36jKyvgtTG5wTDwVkKX_aw8N-Z4azK_cj5jwCdKQmSCR2tEZl5S3Xsj6DQW_Yn1TgP7oMA75bm50mFoX5kvzkkDa9wqsePsSFIm3-IYiChdAa1MyaJjfKtyovJmHxy4Wkr8FX7UDyw')">
+                    <!-- Map Overlay Elements -->
+                    <div
+                        class="absolute top-4 left-4 bg-background-light/95 dark:bg-background-dark/95 p-3 rounded-lg shadow-xl border border-primary/20 flex flex-col gap-2">
+                        <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-500">
+                            <span class="material-symbols-outlined text-sm">layers</span> Layers
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <label
+                                class="flex items-center gap-2 text-sm cursor-pointer hover:bg-primary/5 p-1 rounded">
+                                <input checked="" class="rounded text-primary focus:ring-primary bg-transparent"
+                                    type="checkbox" />
+                                Surface Temp
+                            </label>
+                            <label
+                                class="flex items-center gap-2 text-sm cursor-pointer hover:bg-primary/5 p-1 rounded">
+                                <input checked="" class="rounded text-primary focus:ring-primary bg-transparent"
+                                    type="checkbox" />
+                                Vulnerability
+                            </label>
+                        </div>
+                    </div>
+                    <!-- Selected Block Highlight Placeholder -->
+                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <div
+                            class="w-32 h-32 border-4 border-primary bg-primary/20 rounded-lg shadow-[0_0_50px_rgba(197,48,48,0.5)] flex items-center justify-center">
+                            <span class="text-white font-bold text-xs uppercase bg-primary px-2 py-1 rounded">ID:
+                                4821</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Right Panel: Insights (35%) -->
+            <aside
+                class="lg:w-[35%] flex flex-col bg-background-light dark:bg-background-dark overflow-y-auto p-6 lg:p-10 space-y-8">
+                <!-- Breadcrumbs & Header -->
+                <div class="space-y-4">
+                    <nav class="flex items-center gap-2 text-xs font-medium text-slate-500 dark:text-slate-400">
+                        <a class="hover:text-primary" href="#">Montgomery</a>
+                        <span class="material-symbols-outlined text-sm">chevron_right</span>
+                        <a class="hover:text-primary" href="#">Neighborhood</a>
+                        <span class="material-symbols-outlined text-sm">chevron_right</span>
+                        <span class="text-primary">Block ID 4821</span>
+                    </nav>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h1 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100">AI Heat
+                                Brief</h1>
+                            <p class="text-slate-500 dark:text-slate-400 mt-1">Detailed vulnerability analysis for Block
+                                4821</p>
+                        </div>
+                        <div class="flex flex-col items-center p-3 rounded-xl bg-primary/10 border border-primary/20">
+                            <span class="text-xs font-bold text-primary uppercase tracking-widest">Score</span>
+                            <span class="text-2xl font-black text-primary">8.4<span class="text-sm font-normal"> /
+                                    10</span></span>
+                            <span
+                                class="text-[10px] font-bold text-primary/80 px-2 py-0.5 bg-primary/20 rounded-full mt-1">HIGH
+                                RISK</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Signal Chips -->
+                <div class="grid grid-cols-3 gap-3">
+                    <div class="flex flex-col items-center p-3 rounded-lg border border-primary/10 bg-primary/5">
+                        <span class="material-symbols-outlined text-primary mb-1">park</span>
+                        <span class="text-[10px] font-bold uppercase text-slate-500">Tree Cover</span>
+                        <span class="text-sm font-bold text-primary">Low (4%)</span>
+                    </div>
+                    <div class="flex flex-col items-center p-3 rounded-lg border border-primary/10 bg-primary/5">
+                        <span class="material-symbols-outlined text-primary mb-1">domain</span>
+                        <span class="text-[10px] font-bold uppercase text-slate-500">Impervious</span>
+                        <span class="text-sm font-bold text-primary">High (82%)</span>
+                    </div>
+                    <div class="flex flex-col items-center p-3 rounded-lg border border-primary/10 bg-primary/5">
+                        <span class="material-symbols-outlined text-primary mb-1">wb_sunny</span>
+                        <span class="text-[10px] font-bold uppercase text-slate-500">Shade</span>
+                        <span class="text-sm font-bold text-primary">Low</span>
+                    </div>
+                </div>
+                <!-- Evidence Strip (Street View) -->
+                <div class="space-y-4">
+                    <h3
+                        class="text-sm font-bold text-slate-900 dark:text-slate-100 uppercase tracking-widest flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary text-lg">camera</span>
+                        Visual Evidence
+                    </h3>
+                    <div class="grid grid-cols-3 gap-2">
+                        <div class="space-y-2">
+                            <div
+                                class="aspect-square bg-slate-300 dark:bg-slate-700 rounded-lg overflow-hidden border border-primary/10">
+                                <img alt="Low canopy street view" class="w-full h-full object-cover"
+                                    data-alt="Street view showing absence of roadside trees"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuFc1k-sgciI48ab2Ou2ugzAHF5Z97XhJ6IOsvwGfb1owb6zMJZJDO-iDj1oHUBEh0O0sPxtnzSAsJVwOMcK2KiJD_rl810dvPh-J-U0VtfgYwK8mUEADaaAFfzM2RJYjcmqswDpcbbRkYeyL1DGk98YX7y3JVTqwhcS3P4cw5SX_viDvwZHCBl-fOMIGxJ_dCHroCMIAnes0EzG38ue1BG7llzEbAp76DIHpZ6yO1q-qM7bxqKdUrjV1YOHHPoxUTR0iequCH61U" />
+                            </div>
+                            <p class="text-[10px] leading-tight text-center font-medium">Low canopy</p>
+                        </div>
+                        <div class="space-y-2">
+                            <div
+                                class="aspect-square bg-slate-300 dark:bg-slate-700 rounded-lg overflow-hidden border border-primary/10">
+                                <img alt="High asphalt density" class="w-full h-full object-cover"
+                                    data-alt="Close up of dark asphalt road surface"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDz-OEgl0CMZ4GPhT04AjveUBuBowxw-gfLcCpAxibyarnoeY-vvcncDF-WS8vldbhXj9aj4gzrbSzTAuxrZ95Swg9p5ugyv5cP4EKPTjIxdKigrSq98rwFn8ACZie5puhWasS9RP9_DWkXo-iwY6fzNLtUOCMpxYfRgNqDm307RB7Xp7dSjQRufHNpxGjLxmh1fXe066WqCFw3ddqHHr9pjMqYTcEVuchXWh3Gx9um7keC26SuWkY3TUdBFcKKN7OPocji3z-3iE" />
+                            </div>
+                            <p class="text-[10px] leading-tight text-center font-medium text-primary">High asphalt
+                                density</p>
+                        </div>
+                        <div class="space-y-2">
+                            <div
+                                class="aspect-square bg-slate-300 dark:bg-slate-700 rounded-lg overflow-hidden border border-primary/10">
+                                <img alt="Lack of shade" class="w-full h-full object-cover"
+                                    data-alt="Exposed sidewalk with no shade structures"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_odeIYYAYAZ6OYpmQNK-3vD-6sM-PzEtdOiyCVlWMsqi6LTkK00nG4BWG0MCg9adel2ceA2mVjek1HaWOyDfo8KS_0n2eO-H4CTxi4mgyR3976EvwTidHsH7RScCWxXaOsLSEa3tyXM44DWGq20NRqnZZhbA2ziXcJ5xOJOihMX-w0yzM5qfgKPbdPV1gL_Slaimucy198kPVtLRe24bcEuMB5W5B015iLTVZoIG9MA167m3eOimAg0KAkh24PMdIC3X2hTp_aVU" />
+                            </div>
+                            <p class="text-[10px] leading-tight text-center font-medium">Lack of shade</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Top Drivers Section -->
+                <div class="p-6 rounded-xl bg-background-light dark:bg-slate-900/50 border border-primary/10 space-y-4">
+                    <h3
+                        class="text-sm font-bold text-slate-900 dark:text-slate-100 uppercase tracking-widest flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary text-lg">analytics</span>
+                        Top Vulnerability Drivers
+                    </h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-outlined text-primary text-xl">error</span>
+                            <div class="text-sm">
+                                <strong class="text-slate-900 dark:text-slate-100">Critical Canopy Deficiency:</strong>
+                                <span class="text-slate-500 dark:text-slate-400"> 96% of the block surface is exposed to
+                                    direct solar radiation.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-outlined text-primary text-xl">error</span>
+                            <div class="text-sm">
+                                <strong class="text-slate-900 dark:text-slate-100">Heat Trap Infrastructure:</strong>
+                                <span class="text-slate-500 dark:text-slate-400"> High asphalt-to-greenery ratio causes
+                                    extreme nighttime heat retention.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-outlined text-primary text-xl">person_alert</span>
+                            <div class="text-sm">
+                                <strong class="text-slate-900 dark:text-slate-100">Demographic Risk:</strong>
+                                <span class="text-slate-500 dark:text-slate-400"> High density of elderly residents
+                                    (65+) living in non-insulated housing.</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- CTA -->
+                <div class="pt-4">
+                    <button
+                        class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-xl transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-3 group">
+                        <span class="material-symbols-outlined group-hover:rotate-12 transition-transform">bolt</span>
+                        Generate full heat brief (15 seconds)
+                    </button>
+                    <p class="text-center text-[11px] text-slate-400 mt-4 uppercase tracking-widest font-bold">
+                        Comprehensive PDF Report Includes Site Mitigation Options</p>
+                </div>
+            </aside>
+        </main>
+    </div>
+</body>
+
+</html>
