@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>HeatDebt - Fix It</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#c53030",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#1f1313",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .map-overlay-gradient {
+            background: linear-gradient(to right, #fbbf24, #f97316, #ef4444);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #422929;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased overflow-hidden">
+    <div class="flex flex-col h-screen">
+        <!-- Top Navigation -->
+        <header
+            class="sticky top-0 z-50 flex items-center justify-between border-b border-primary/20 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md px-6 py-3">
+            <div class="flex items-center gap-3">
+                <div class="flex items-center justify-center size-10 rounded-lg bg-primary text-white">
+                    <span class="material-symbols-outlined text-2xl">thermostat</span>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">HeatDebt</h1>
+                    <p class="text-[10px] uppercase tracking-widest text-primary font-semibold">Thermal Equity Project
+                    </p>
+                </div>
+            </div>
+            <nav class="flex gap-1">
+                <a class="flex items-center gap-2 px-4 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-primary/10 transition-colors font-medium"
+                    href="index.html">
+                    <span class="material-symbols-outlined text-sm">map</span>
+                    See It
+                </a>
+                <a class="flex items-center gap-2 px-4 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-primary/10 transition-colors font-medium"
+                    href="explain-it.html">
+                    <span class="material-symbols-outlined text-sm">lightbulb</span>
+                    Explain It
+                </a>
+                <a class="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white font-medium transition-colors"
+                    href="fix-it.html">
+                    <span class="material-symbols-outlined text-sm">build</span>
+                    Fix It
+                </a>
+                <a class="flex items-center gap-2 px-4 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-primary/10 transition-colors font-medium"
+                    href="fund-it.html">
+                    <span class="material-symbols-outlined text-sm">volunteer_activism</span>
+                    Fund It
+                </a>
+            </nav>
+            <div class="flex items-center gap-4">
+                <button class="p-2 rounded-full hover:bg-primary/10 text-slate-600 dark:text-slate-400">
+                    <span class="material-symbols-outlined">notifications</span>
+                </button>
+                <div
+                    class="size-10 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center overflow-hidden">
+                    <img class="w-full h-full object-cover" data-alt="User profile avatar"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYrAG8N2VIKoy6r1E3zWV2tc0lOgzP-CjltrZBDmpvyKvEMj8q6idc3jgjkPUORCzfU0mgnBGiSkQ11aDxsStQKIlc7yZkQtJOM4JhCMyS0f0617aPoNqAXzHpjGB4GAwQcRbv_dDSvKJHwov6VxR3ci1ZcepL1dcXDGIimyZrM2CYjYg4Gw9ALL-ru-lQgymjUciXHCUYd7p3kJUfbPty0AJUECSxIbyB5GV1ADw3j6P6b1t2bpURn4rC8Jl2qxCTPxlwmKo_E5s" />
+                </div>
+            </div>
+        </header>
+        <!-- Main Content Split Layout -->
+        <main class="flex flex-col lg:flex-row h-[calc(100vh-125px)] overflow-hidden">
+            <!-- Left Panel: Interactive Map (65%) -->
+            <div class="w-full lg:w-[65%] h-1/2 lg:h-full relative border-r border-primary/10">
+                <div class="absolute inset-0 bg-slate-200 dark:bg-[#150d0d]">
+                    <!-- Simulated Map Background -->
+                    <div class="w-full h-full bg-cover bg-center"
+                        data-alt="Satellite map of Montgomery city block with heat overlay and intervention icons"
+                        data-location="Montgomery"
+                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBr80oizXneLf4n9MQ_ErTzIB0t0txAXLL7rCNLYGbLnHpVyMlY2iAjCUOzrpKtKIzpDsstgf6rJA8nNzD_xA6BDcj6XNicdrrTwNmf6uZMrMTZES8smiu_4DLL92Wyhj_RZkdiuQVZxoe6pzKfrru3hyw5AVgFb7WIkdnvwGu_AmdhgLL8pKkhJe134OvlMdqC5Lq7QvfVFgQ2JeGNGQFQgLL4L0tlFe3pwC3_ZIeNe4jewuoJI_GqBW5ixtEb4JgtzsbaBweWjHk')">
+                    </div>
+                    <!-- Map UI Elements: Intervention Pins -->
+                    <div class="absolute top-1/3 left-1/4 group cursor-pointer">
+                        <div
+                            class="bg-green-600 text-white p-1.5 rounded-full shadow-lg border-2 border-white flex items-center justify-center">
+                            <span class="material-symbols-outlined text-sm">park</span>
+                        </div>
+                    </div>
+                    <div class="absolute top-1/2 left-1/2 group cursor-pointer">
+                        <div
+                            class="bg-blue-500 text-white p-1.5 rounded-full shadow-lg border-2 border-white flex items-center justify-center">
+                            <span class="material-symbols-outlined text-sm">umbrella</span>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-1/4 right-1/3 group cursor-pointer">
+                        <div
+                            class="bg-amber-500 text-white p-1.5 rounded-full shadow-lg border-2 border-white flex items-center justify-center">
+                            <span class="material-symbols-outlined text-sm">texture</span>
+                        </div>
+                    </div>
+                    <!-- Map Legend -->
+                    <div
+                        class="absolute bottom-6 left-6 bg-background-light/95 dark:bg-background-dark/95 p-4 rounded-xl shadow-2xl border border-primary/20 backdrop-blur-sm max-w-xs">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">Intervention Key</h4>
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-green-600">park</span>
+                                <span class="text-xs font-medium">Tree Canopy Additions</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-amber-500">texture</span>
+                                <span class="text-xs font-medium">Cool Pavement Treatment</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-blue-500">umbrella</span>
+                                <span class="text-xs font-medium">Public Shade Structures</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Right Panel: Ranked Interventions (35%) -->
+            <div
+                class="w-full lg:w-[35%] h-1/2 lg:h-full bg-background-light dark:bg-background-dark overflow-y-auto custom-scrollbar">
+                <div class="p-6 lg:p-8">
+                    <!-- Breadcrumbs -->
+                    <div class="flex items-center gap-2 mb-6 text-xs font-medium">
+                        <a class="text-slate-500 hover:text-primary" href="#">Montgomery</a>
+                        <span class="text-slate-400">/</span>
+                        <a class="text-slate-500 hover:text-primary" href="#">Neighborhood</a>
+                        <span class="text-slate-400">/</span>
+                        <span class="text-primary font-bold">Block ID 4821</span>
+                    </div>
+                    <div class="flex items-center justify-between mb-8">
+                        <h2 class="text-2xl font-bold tracking-tight">Ranked Interventions</h2>
+                    </div>
+                    <!-- Filters Section -->
+                    <div class="bg-primary/5 dark:bg-primary/10 rounded-xl p-5 mb-8 border border-primary/10">
+                        <div class="mb-6">
+                            <div class="flex justify-between items-center mb-3">
+                                <label class="text-sm font-semibold">Budget Limit</label>
+                                <span class="text-sm font-bold text-primary">$50,000</span>
+                            </div>
+                            <input
+                                class="w-full h-1.5 bg-primary/20 rounded-lg appearance-none cursor-pointer accent-primary"
+                                max="100000" min="5000" step="5000" type="range" />
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <label class="text-sm font-semibold">Quick wins only</label>
+                            <button class="relative inline-flex h-6 w-11 items-center rounded-full bg-primary">
+                                <span
+                                    class="inline-block h-4 w-4 translate-x-6 transform rounded-full bg-white transition"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Ranked List -->
+                    <div class="space-y-4">
+                        <!-- Card 1 -->
+                        <div
+                            class="group relative bg-white dark:bg-slate-800/50 p-5 rounded-xl border border-primary/10 hover:border-primary/40 transition-all shadow-sm">
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="flex gap-3">
+                                    <div class="bg-green-600/10 text-green-600 p-2 rounded-lg">
+                                        <span class="material-symbols-outlined">park</span>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-slate-900 dark:text-slate-100">Urban Tree Canopy</h3>
+                                        <p class="text-xs text-slate-500 dark:text-slate-400">12 High-heat focal points
+                                        </p>
+                                    </div>
+                                </div>
+                                <span
+                                    class="bg-primary/10 text-primary text-[10px] font-black px-2 py-0.5 rounded uppercase">Rank
+                                    1</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-2">
+                                <div class="bg-slate-50 dark:bg-slate-900/50 p-2 rounded-lg text-center">
+                                    <p class="text-[10px] uppercase text-slate-400 font-bold mb-1">Cost</p>
+                                    <p class="text-sm font-bold">$12k</p>
+                                </div>
+                                <div class="bg-slate-50 dark:bg-slate-900/50 p-2 rounded-lg text-center">
+                                    <p class="text-[10px] uppercase text-slate-400 font-bold mb-1">Impact</p>
+                                    <p class="text-sm font-bold text-primary">-4°F</p>
+                                </div>
+                                <div class="bg-slate-50 dark:bg-slate-900/50 p-2 rounded-lg text-center">
+                                    <p class="text-[10px] uppercase text-slate-400 font-bold mb-1">Timeline</p>
+                                    <p class="text-sm font-bold">2 yrs</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card 2 -->
+                        <div
+                            class="group relative bg-white dark:bg-slate-800/50 p-5 rounded-xl border border-primary/10 hover:border-primary/40 transition-all shadow-sm">
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="flex gap-3">
+                                    <div class="bg-amber-500/10 text-amber-500 p-2 rounded-lg">
+                                        <span class="material-symbols-outlined">texture</span>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-slate-900 dark:text-slate-100">Cool Pavement Coating
+                                        </h3>
+                                        <p class="text-xs text-slate-500 dark:text-slate-400">Main arterial roads</p>
+                                    </div>
+                                </div>
+                                <span
+                                    class="bg-slate-200 dark:bg-slate-700 text-slate-500 text-[10px] font-black px-2 py-0.5 rounded uppercase">Rank
+                                    2</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-2">
+                                <div class="bg-slate-50 dark:bg-slate-900/50 p-2 rounded-lg text-center">
+                                    <p class="text-[10px] uppercase text-slate-400 font-bold mb-1">Cost</p>
+                                    <p class="text-sm font-bold">$25k</p>
+                                </div>
+                                <div class="bg-slate-50 dark:bg-slate-900/50 p-2 rounded-lg text-center">
+                                    <p class="text-[10px] uppercase text-slate-400 font-bold mb-1">Impact</p>
+                                    <p class="text-sm font-bold text-primary">-6°F</p>
+                                </div>
+                                <div class="bg-slate-50 dark:bg-slate-900/50 p-2 rounded-lg text-center">
+                                    <p class="text-[10px] uppercase text-slate-400 font-bold mb-1">Timeline</p>
+                                    <p class="text-sm font-bold">6 mos</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card 3 -->
+                        <div
+                            class="group relative bg-white dark:bg-slate-800/50 p-5 rounded-xl border border-primary/10 hover:border-primary/40 transition-all shadow-sm">
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="flex gap-3">
+                                    <div class="bg-blue-500/10 text-blue-500 p-2 rounded-lg">
+                                        <span class="material-symbols-outlined">umbrella</span>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-slate-900 dark:text-slate-100">Bus Stop Shade</h3>
+                                        <p class="text-xs text-slate-500 dark:text-slate-400">Transit corridors</p>
+                                    </div>
+                                </div>
+                                <span
+                                    class="bg-slate-200 dark:bg-slate-700 text-slate-500 text-[10px] font-black px-2 py-0.5 rounded uppercase">Rank
+                                    3</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-2">
+                                <div class="bg-slate-50 dark:bg-slate-900/50 p-2 rounded-lg text-center">
+                                    <p class="text-[10px] uppercase text-slate-400 font-bold mb-1">Cost</p>
+                                    <p class="text-sm font-bold">$8k</p>
+                                </div>
+                                <div class="bg-slate-50 dark:bg-slate-900/50 p-2 rounded-lg text-center">
+                                    <p class="text-[10px] uppercase text-slate-400 font-bold mb-1">Impact</p>
+                                    <p class="text-sm font-bold text-primary">-2°F</p>
+                                </div>
+                                <div class="bg-slate-50 dark:bg-slate-900/50 p-2 rounded-lg text-center">
+                                    <p class="text-[10px] uppercase text-slate-400 font-bold mb-1">Timeline</p>
+                                    <p class="text-sm font-bold">3 mos</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- CTA Button -->
+                    <button
+                        class="mt-8 w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-transform active:scale-95 shadow-lg shadow-primary/20">
+                        <span class="material-symbols-outlined">picture_as_pdf</span>
+                        Download Action Plan (PDF)
+                    </button>
+                </div>
+            </div>
+    </div>
+</body>
+
+</html>
